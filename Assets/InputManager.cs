@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class InputManager : MonoBehaviour
 {
     public UnityEvent<Vector2> OnMove = new UnityEvent<Vector2>();
+    public UnityEvent OnJump = new UnityEvent();
 
     void Update()
     {
@@ -23,6 +24,10 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             input.x += 1;
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            OnJump?.Invoke();
         }
 
         if (input.magnitude > 1)
