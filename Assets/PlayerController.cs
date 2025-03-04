@@ -4,38 +4,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //player object
     private Rigidbody playerModel;
+
     [SerializeField] private float speed;
     [SerializeField] private Transform orientation;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDir;
-
 
     public void Start()
     {
         playerModel = GetComponent<Rigidbody>();
         playerModel.freezeRotation = true;
     }
-    private void FixedUpdate()
-    {
-        movePlayer();
-        controlSpeed();
-    }
     private void Update()
     {
-        moveInput();
+        controlSpeed();
     }
-    private void moveInput()
+    public void movePlayer(Vector2 input)
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-    }
-    private void movePlayer()
-    {
-        moveDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 moveDir = orientation.forward * input.y + orientation.right * input.x;
         playerModel.AddForce(moveDir.normalized * speed * 10f, ForceMode.Force);
     }
 
